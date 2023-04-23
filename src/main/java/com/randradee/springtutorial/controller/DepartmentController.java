@@ -44,4 +44,9 @@ public class DepartmentController {
             @RequestBody Department department) {
         return departmentService.updateOneDepartment(id, department);
     }
+
+    @GetMapping("/name/{name}")
+    public Department getDepartmentByName(@PathVariable(value = "name") String name) {
+        return departmentService.getDepartmentByName(name);
+    }
 }
