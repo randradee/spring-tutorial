@@ -1,6 +1,7 @@
 package com.randradee.springtutorial.service;
 
 import com.randradee.springtutorial.entity.Department;
+import com.randradee.springtutorial.error.DepartmentNotFoundException;
 import com.randradee.springtutorial.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getOneDepartment(Long id) {
-        return departmentRepository.findById(id).get();
+    public Department getOneDepartment(Long id) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (!department.isPresent()){
+            throw new DepartmentNotFoundException("Department not found");
+        }
+        return department.get();
     }
 
     @Override
@@ -38,27 +43,29 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department updateOneDepartment(Long id, Department department) {
-        Department depDB = departmentRepository.findById(id).get();
+    public Department updateOneDepartment(Long id, Department department) throws DepartmentNotFoundException {
+        Optional<Department> depDB = departmentRepository.findById(id);
 
+        if (!depDB.isPresent()){
+            throw new DepartmentNotFoundException("Department not found");
+        }
 
         if (Objects.nonNull(department.getName()) &&
                 !"".equalsIgnoreCase(department.getName())
         ) {
-            depDB.setName(department.getName());
+            depDB.get().setName(department.getName());
         }
         if (Objects.nonNull(department.getAddress()) &&
                 !"".equalsIgnoreCase(department.getAddress())
         ) {
-            depDB.setAddress(department.getAddress());
+            depDB.get().setAddress(department.getAddress());
         }
         if (Objects.nonNull(department.getCode()) &&
                 !"".equalsIgnoreCase(department.getCode())
         ) {
-            depDB.setCode(department.getCode());
+            depDB.get().setCode(department.getCode());
         }
-
-        return departmentRepository.save(depDB);
+        return departmentRepository.save(depDB.get());
     }
 
     @Override
