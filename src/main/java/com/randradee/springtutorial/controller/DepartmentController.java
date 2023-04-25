@@ -2,6 +2,7 @@ package com.randradee.springtutorial.controller;
 
 import com.randradee.springtutorial.entity.Department;
 import com.randradee.springtutorial.service.DepartmentServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class DepartmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Department saveDepartment(@RequestBody Department department) {
+    public Department saveDepartment(@RequestBody @Valid Department department) {
         return departmentService.saveDepartment(department);
     }
 
@@ -41,7 +42,7 @@ public class DepartmentController {
 
     @PutMapping("/{id}")
     public Department updateOneDepartment(@PathVariable(value = "id") Long id,
-            @RequestBody Department department) {
+            @RequestBody @Valid Department department) {
         return departmentService.updateOneDepartment(id, department);
     }
 
