@@ -27,7 +27,12 @@ class DepartmentServiceTest {
 
     @BeforeEach
     void setUp() {
-        Department department = new Department(1L, "IT", "Ahmedabad", "IT-06");
+        Department department = Department.builder()
+                .id(1L)
+                .name("IT")
+                .address("Ahmedabad")
+                .code("IT-06")
+                .build();
 
         Mockito.when(departmentRepository.findByNameIgnoreCase("IT")).thenReturn(department);
         Mockito.when(departmentRepository.findByNameIgnoreCase("Invalid")).thenReturn(department);
@@ -35,7 +40,7 @@ class DepartmentServiceTest {
 
     @Test
     @DisplayName("Get data based on valid department name")
-    public void givenDepartmentName_whenDepartmentIsValid_thenDepartmentShouldBeFound(){
+    public void givenDepartmentName_whenDepartmentIsValid_thenDepartmentShouldBeFound() {
         String departmentName = "IT";
         Department found = departmentService.getDepartmentByName(departmentName);
 
@@ -44,7 +49,7 @@ class DepartmentServiceTest {
 
     @Test
     @DisplayName("Get data based on invalid department name")
-    public void givenDepartmentName_whenDepartmentIsNotValid_thenDepartmentShouldNotBeFound(){
+    public void givenDepartmentName_whenDepartmentIsNotValid_thenDepartmentShouldNotBeFound() {
         String departmentName = "Invalid";
         Department found = departmentService.getDepartmentByName(departmentName);
 

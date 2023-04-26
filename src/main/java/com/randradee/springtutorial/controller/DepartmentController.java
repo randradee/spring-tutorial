@@ -25,7 +25,6 @@ public class DepartmentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Department saveDepartment(@RequestBody @Valid Department department) {
-        LOGGER.info("Inside saveDepartment of DepartmentController");
         return departmentService.saveDepartment(department);
     }
 
