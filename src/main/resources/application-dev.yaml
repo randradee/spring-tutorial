@@ -1,9 +1,4 @@
-server:
-  port: 8082
-
 spring:
-  profiles:
-    active: dev
   datasource:
     username: root
     url: jdbc:mysql://localhost:3306/spring_boot_tutorial
@@ -23,3 +18,8 @@ logging:
     com:
       mkyong: DEBUG
   file: app.log
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
