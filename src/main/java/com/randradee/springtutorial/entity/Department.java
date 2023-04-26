@@ -30,6 +30,12 @@ public class Department {
         this.code = code;
     }
 
+    public Department(String name, String address, String code) {
+        this.name = name;
+        this.address = address;
+        this.code = code;
+    }
+
     public Long getId() {
         return id;
     }
