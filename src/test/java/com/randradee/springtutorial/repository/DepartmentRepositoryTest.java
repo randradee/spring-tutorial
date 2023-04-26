@@ -32,11 +32,13 @@ class DepartmentRepositoryTest {
     }
 
     @Test
-    public void givenId_whenIdIsValid_thenDepartmentShouldBeFound(){
+    public void givenId_whenIdIsValid_thenDepartmentShouldBeFound() {
         // Setup needed to be done here, will search for the reason later
-        Department department = new Department("Mechanical Engineering",
-                "Delhi",
-                "ME-011");
+        Department department = Department.builder()
+                .name("Mechanical Engineering")
+                .address("Delhi")
+                .code("ME-011")
+                .build();
 
         entityManager.persist(department);
         // End of setup

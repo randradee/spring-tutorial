@@ -35,7 +35,11 @@ class DepartmentControllerTest {
 
     @Test
     void givenDepartment_whenDepartmentIsValid_thenSaveDepartment() throws Exception {
-        var inputDepartment = new Department("test", "test address", "test code");
+        var inputDepartment = Department.builder()
+                .name("test")
+                .address("test address")
+                .code("test code")
+                .build();
 
         Mockito.when(departmentService.saveDepartment(inputDepartment)).thenReturn(department);
 
